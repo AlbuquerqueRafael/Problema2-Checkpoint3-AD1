@@ -41,12 +41,9 @@ agruparFornecedor_ck <-  group_by(lucroFornecedor_ck , Fornecedor, Nome, Partido
 lucroPorFornecedor_ck <- summarise(agruparFornecedor_ck, sum(valorLiquido))
 colnames(lucroPorFornecedor_ck ) <- c("Fornecedor", "Deputado","Partido", "ValorRecebido")
 
-topFornecedores_ck <- subset(lucroPorFornecedor_ck, Fornecedor %in% lucroPorFornecedor$Fornecedor)
-topFornecedores_ck <- filter(topFornecedores_ck, ValorRecebido > 0)
-
 
 topFornecedores_ck <- subset(agruparFornecedor_ck , Fornecedor %in% lucroPorFornecedor_ck$Fornecedor)
-topFornecedores_ck <- filter(topFornecedores_ck, ValorRecebido > 0)
+topFornecedores_ck <- filter(topFornecedores_ck, valorLiquido > 0)
 
 
 gastosTotais <- ler_gastos()
@@ -73,7 +70,6 @@ total <- merge(gastosPorPassagens1 ,gastosPorPassagens2, all.x = TRUE)
 total.long<-melt(total)
 
 colnames(total.long) <- c("Deputado", "Partido", "Legenda", "Gastos")
-total.long$Deputado <- reorder(total.long$Deputado, total.long$Gastos, FUN=identity)
 
 
 escolhas <<- list("Gastos com Passagens Aereas" = "passagens",
