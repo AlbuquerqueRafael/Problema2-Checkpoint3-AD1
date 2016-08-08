@@ -42,8 +42,8 @@ lucroPorFornecedor_ck <- summarise(agruparFornecedor_ck, sum(valorLiquido))
 colnames(lucroPorFornecedor_ck ) <- c("Fornecedor", "Deputado","Partido", "ValorRecebido")
 
 
-topFornecedores_ck <- subset(agruparFornecedor_ck , Fornecedor %in% lucroPorFornecedor_ck$Fornecedor)
-topFornecedores_ck <- filter(topFornecedores_ck, valorLiquido > 0)
+topFornecedores_ck <- subset(lucroPorFornecedor_ck, Fornecedor %in% lucroPorFornecedor$Fornecedor)
+topFornecedores_ck <- filter(topFornecedores_ck, ValorRecebido> 0)
 
 
 gastosTotais <- ler_gastos()
